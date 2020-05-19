@@ -77,7 +77,7 @@ def do_log(stop_word = 'break app', lang_list = ['en','ru','fa']):
 
 
 
-def do_log_with_recognition(stop_word = 'break app', lang_list = ['en','ru','fa'], ends=['US','RU','IR']):
+def do_log_with_recognition(stop_word = 'breakapp', lang_list = ['en','ru','fa'], ends=['US','RU','IR']):
     
     counter = 1
     
@@ -91,7 +91,7 @@ def do_log_with_recognition(stop_word = 'break app', lang_list = ['en','ru','fa'
     
     print(colored(' '.join(choosen_list),on_color = 'on_green'))  
     
-    print(colored('Choose a number of lang to star talking',on_color='on_blue'))
+    print(colored('Choose a number of lang to start talking',on_color='on_blue'))
     
     
     while True:
@@ -115,12 +115,12 @@ def do_log_with_recognition(stop_word = 'break app', lang_list = ['en','ru','fa'
             print(colored(' '.join(choosen_list),on_color = 'on_green'))
 
 
-do_log()
+#do_log()
 
 do_log_with_recognition()
 
 
-
+#input('Press any key...')
 
 
 
