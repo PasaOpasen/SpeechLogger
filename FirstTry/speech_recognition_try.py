@@ -7,6 +7,11 @@ Created on Tue May 19 14:28:23 2020
 source https://towardsdatascience.com/easy-speech-to-text-with-python-3df0d973b426
 
 langs https://cloud.google.com/speech-to-text/docs/languages
+
+russian = 'ru-RU'
+english = 'en-US'
+farsi = 'fa-IR'
+
 """
 
 import speech_recognition as sr
@@ -35,23 +40,73 @@ def speech_to_text_from_wav():
              print('Sorry.. run again...')
              
              
-def speech_to_text_from_micro():
+def speech_to_text_from_micro(lang = 'ru-RU'):
     r = sr.Recognizer()
+
 
     # Reading Microphone as source
     # listening the speech and store in audio_text variable
     
     with sr.Microphone() as source:
+        #wait for a second to let the recognizer adjust the  
+        #energy threshold based on the surrounding noise level 
+        r.adjust_for_ambient_noise(source, 0.5) 
+        
         print("Talk")
         audio_text = r.listen(source)
         print("Time over, thanks")
-    # recoginize_() method will throw a request error if the API is unreachable, hence using exception handling
+        # recoginize_() method will throw a request error if the API is unreachable, hence using exception handling
         
         try:
             # using google speech recognition
-            print("Text: "+r.recognize_google(audio_text))
+            print("Text: "+r.recognize_google(audio_text, language = lang))
         except:
-             print("Sorry, I did not get that")
+            print("could not understand audio")
              
              
 speech_to_text_from_micro()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
