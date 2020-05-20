@@ -23,7 +23,7 @@ TODO:
 
 * add text logging in file
 
-
+![1](https://github.com/PasaOpasen/SpeechLogger/blob/master/gifs/first.gif)
 
 
 
