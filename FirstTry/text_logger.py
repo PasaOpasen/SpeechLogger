@@ -81,15 +81,17 @@ def do_log_with_recognition(stop_word = 'breakapp', lang_list = ['en','ru','fa']
     
     counter = 1
     
-    print(colored('Good! Write "','magenta',on_color='on_blue'),end='')
-    print(colored(str(stop_word),'red',on_color='on_cyan'),end='')    
-    print(colored('" to stop logging','magenta',on_color='on_blue'))
+    print(colored('Good! Write "',on_color='on_blue'),end='')
+    print(colored(str(stop_word),on_color='on_red'),end='')    
+    print(colored('" to stop logging',on_color='on_blue'))
     
-    print(colored('Output lang list: ','magenta',on_color='on_blue'),end='')
+    print(colored('Output lang list: ',on_color='on_blue'),end='')
     
     choosen_list = [f'{number+1}) {lang}' for number, lang in zip(range(len(lang_list)),lang_list)]
     
-    print(colored(' '.join(choosen_list),on_color = 'on_green'))  
+    langs_string = ' '.join(choosen_list)+' '
+    
+    print(colored(langs_string,on_color = 'on_green'))  
     
     print(colored('Choose a number of lang to start talking',on_color='on_blue'))
     
@@ -112,7 +114,7 @@ def do_log_with_recognition(stop_word = 'breakapp', lang_list = ['en','ru','fa']
         
         if counter%5 == 0:
             print("don't forget lang numbers:",end=' ')
-            print(colored(' '.join(choosen_list),on_color = 'on_green'))
+            print(colored(langs_string,on_color = 'on_green'))
 
 
 #do_log()

@@ -24,7 +24,7 @@ CHANNELS = 1
 RATE = 16000
 swidth = 2
 Max_Seconds = 10
-TimeoutSignal=math.floor((RATE / chunk * Max_Seconds) + 2)
+TimeoutSignal=((RATE // chunk * Max_Seconds) + 2)
 silence = True
 FileNameTmp = 'some.wav'
 Time=0
@@ -61,7 +61,7 @@ def WriteSpeech(WriteData):
 
 def KeepRecord(TimeoutSignal, LastBlock):
     alls.append(LastBlock)
-    for i in range(0, TimeoutSignal):
+    for i in range(TimeoutSignal):
         try:
             data = GetStream(chunk)
         except:
@@ -74,6 +74,7 @@ def KeepRecord(TimeoutSignal, LastBlock):
     #data= ''.join(alls)
     print("write to File")
     WriteSpeech(data)
+    alls.clear()
     silence = True
     Time=0
     listen(silence,Time)     
