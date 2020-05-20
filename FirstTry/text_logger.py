@@ -24,13 +24,13 @@ def speech_to_text_from_micro(lang = 'ru-RU'):
         
         print(colored(f"TALK ({lang[:2]})",on_color='on_magenta'))
         audio_text = r.listen(source)
-        print(colored("Time over. STOP",on_color = 'on_red'))
+        print(colored("Okay. Stop talking",on_color = 'on_yellow'))
         # recoginize_() method will throw a request error if the API is unreachable, hence using exception handling
     
     try:
         return r.recognize_google(audio_text, language = lang)
     except:
-        return 'bad result'
+        return 'bad result of recognition'
 
              
 
@@ -38,7 +38,8 @@ def speech_to_text_from_micro(lang = 'ru-RU'):
 def log_text(text, lang_of_text=None, lang_list = ['en','ru']):
     
     if len(text) < 3:
-        print(f'too small text {text}')
+        print(colored('too small text:', on_color = 'on_yellow'),end=' ')
+        print(text)
         return
     
     blob = TextBlob(text)
@@ -48,7 +49,7 @@ def log_text(text, lang_of_text=None, lang_list = ['en','ru']):
     bool_list = [r != lang_of_text for r in lang_list]
     
     for lang, it in zip(lang_list, bool_list):
-        print(f'\t{lang}:', end=' ')
+        print(colored(f'\t {lang}:', color = 'cyan', attrs=['bold']), end=' ')
         if it:
             print(str(blob.translate(from_lang = lang_of_text, to = lang)))
         else:
@@ -77,11 +78,11 @@ def do_log(stop_word = 'break app', lang_list = ['en','ru','fa']):
 
 
 
-def do_log_with_recognition(stop_word = 'breakapp', lang_list = ['en','ru','fa'], ends=['US','RU','IR']):
+def do_log_with_recognition(stop_word = '+', lang_list = ['en','ru','fa'], ends=['US','RU','IR'], lang_repeat_step = 4, stop_repeat_step = 5):
     
     counter = 1
     
-    print(colored('Good! Write "',on_color='on_blue'),end='')
+    print(colored('Welcome! Write "',on_color='on_blue'),end='')
     print(colored(str(stop_word),on_color='on_red'),end='')    
     print(colored('" to stop logging',on_color='on_blue'))
     
@@ -89,7 +90,7 @@ def do_log_with_recognition(stop_word = 'breakapp', lang_list = ['en','ru','fa']
     
     choosen_list = [f'{number+1}) {lang}' for number, lang in zip(range(len(lang_list)),lang_list)]
     
-    langs_string = ' '.join(choosen_list)+' '
+    langs_string = ' '+' '.join(choosen_list)+' '
     
     print(colored(langs_string,on_color = 'on_green'))  
     
@@ -105,16 +106,22 @@ def do_log_with_recognition(stop_word = 'breakapp', lang_list = ['en','ru','fa']
             try:
                 number = int(text)-1
                 text = speech_to_text_from_micro(f'{lang_list[number]}-{ends[number]}')
+                print(colored('You said:',on_color='on_cyan'),end='')
+                print(colored(' '+text, on_color='on_magenta'))
             except:
-                print('Something wrong...')
+                print(colored('Something wrong...',on_color = 'on_yellow'))
 
         log_text(text, lang_list = lang_list)
              
         counter+=1
         
-        if counter%5 == 0:
-            print("don't forget lang numbers:",end=' ')
+        if counter%lang_repeat_step == 0:
+            print(colored("don't forget lang numbers:",on_color='on_cyan'),end='')
             print(colored(langs_string,on_color = 'on_green'))
+        
+        if counter%stop_repeat_step == 0:
+            print(colored("to stop it write",on_color='on_magenta'),end=' ')
+            print(colored(stop_word,on_color = 'on_red'))
 
 
 #do_log()

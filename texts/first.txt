@@ -1,0 +1,11 @@
+Write some text in any language
+
+it will be translated into certain languages
+
+now it uses russian, persian and english
+
+u can write the number of language and say something in that one
+
+/ потом это будет переведено как обычное сообщение
+
+полезная штука для перевода небольших сообщений на несколько языков сразу
