@@ -126,7 +126,8 @@ def do_log_with_recognition(stop_word = '+', lang_list = ['en','ru','fa'], ends=
 
 #do_log()
 
-do_log_with_recognition()
+if __name__ == '__main__':
+	do_log_with_recognition()
 
 
 #input('Press any key...')
