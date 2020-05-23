@@ -25,6 +25,7 @@ TODO:
 
 ![1](https://github.com/PasaOpasen/SpeechLogger/blob/master/gifs/first.gif)
 
+**You can download this app as compiled** (see [releases](https://github.com/PasaOpasen/SpeechLogger/releases)).
 
 
 
