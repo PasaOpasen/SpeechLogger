@@ -27,5 +27,32 @@ TODO:
 
 **You can download this app as compiled** (see [releases](https://github.com/PasaOpasen/SpeechLogger/releases)).
 
+## Second result
+
+New scope:
+
+* recognition speech from speakers too (if u have speaker supported callbacks)
+
+### How to run
+
+I cannot compile it now because of problems with soundcard, but u can run it from Python:
+
+1. Download Python from [official site](https://www.python.org/downloads/) (choose correct operation system)
+
+1. Open **cmd.exe** 
+
+1. Install necessary packages via commands:
+
+```
+pip install numpy
+pip install scipy
+pip install textblob
+pip install pyaudio
+pip install soundcard
+pip install speechrecognition
+pip install termcolor
+pip install colorama
+```
+
 
 
