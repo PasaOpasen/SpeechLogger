@@ -31,11 +31,11 @@ TODO:
 
 New scope:
 
-* recognition speech from speakers too (if u have speaker supported callbacks)
+* recognition speech from speakers too (if u have a speaker supported callbacks)
 
 ### How to run
 
-I cannot compile it now because of problems with soundcard, but u can run it from Python:
+I cannot compile it now because of problems with soundcard, but u can run it by Python:
 
 1. Download Python from [official site](https://www.python.org/downloads/) (choose correct operation system)
 
@@ -54,6 +54,6 @@ pip install termcolor
 pip install colorama
 ```
 
-4. download and run [this file] (https://github.com/PasaOpasen/SpeechLogger/releases/download/0.2.0/text_logger3.py)
+4. download and run [this file](https://github.com/PasaOpasen/SpeechLogger/releases/download/0.2.0/text_logger3.py)
 
 
