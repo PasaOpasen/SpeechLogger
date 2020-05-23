@@ -24,10 +24,11 @@ din = sc.all_microphones(include_loopback=True)[1]
 def speech_to_text_from_speaker(speaker,time = 100_000,samplerate = 48000,lang = 'ru-RU'):
     with speaker.recorder(samplerate=samplerate) as mic:
         print('Listen')
-        dt = mic.record(time)
-        dt =  np.int16(dt * (32767/np.max(np.abs(np.array([dt.min(),dt.max()])))))
+        dt = mic.record(time)        
         print('Okay. Wait')
-        write("tmp.wav", samplerate, dt)
+        write("tmp.wav", 
+              samplerate, 
+              np.int16(dt * (32767/np.max(np.abs(np.array([dt.min(),dt.max()]))))))
     
     return speech_to_text_from_wav(lang)
 
@@ -112,7 +113,7 @@ with din.recorder(samplerate=48000) as mic:
 
 
 
-dt = np.random.rand(50000,500)
+dt = np.random.rand(50000,500)-0.5
 
 %timeit r = np.int16(dt/np.max(np.abs(dt)) * 32767)
 
@@ -123,8 +124,10 @@ dt = np.random.rand(50000,500)
 %timeit r = np.int16(dt * (32767/np.max(np.abs(np.array([dt.min(),dt.max()])))))
 
 
+%timeit xmax = dt.flat[abs(dt).argmax()]
 
-
+%timeit newdt=np.array([dt.min(),dt.max()])
+%timeit xmax = newdt.flat[abs(newdt).argmax()]
 
 
 

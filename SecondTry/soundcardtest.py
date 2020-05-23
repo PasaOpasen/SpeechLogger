@@ -44,12 +44,22 @@ din = sc.all_microphones(include_loopback=True)[1]
 with din.recorder(samplerate=48000) as mic, default_speaker.player(samplerate=48000) as sp:
     for _ in range(1):
         print('play')
-        data = mic.record(numframes=48000)
+        data = mic.record(numframes=100000)
         print('stop')
         scipy.io.wavfile.write("tmp.wav", 48000, data)
         sp.play(data)
 
 
+
+
+
+r = sr.Recognizer()
+    
+with sr. as source:
+        
+    audio_text = r.listen(source)
+            
+    r.recognize_google(audio_text, language = lang)
 
 
 
