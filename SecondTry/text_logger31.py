@@ -3,6 +3,12 @@
 Created on Tue May 23 14:44:49 2020
 
 @author: qtckp
+
+
+try to use another paths like https://stackoverflow.com/questions/9553262/pyinstaller-ioerror-errno-2-no-such-file-or-directory
+
+cuz had pyinstaller errors (no such directory soundcard)
+
 """
 
 from textblob import TextBlob
@@ -11,12 +17,16 @@ import soundcard as sc
 from scipy.io.wavfile import write
 import numpy as np
 
+import os, sys
+
 from termcolor import colored
 import colorama
 colorama.init()
 
 
 my_speaker = None
+
+filename = os.path.join(os.path.dirname(sys.executable), 'tmp.wav')
 
 
 def print_on_blue(text, end='\n'):
@@ -77,14 +87,14 @@ def speech_to_text_from_speaker(speaker,time = 100_000,samplerate = 48000,lang =
         print_on_magenta('Listen')
         dt = mic.record(time)        
         print_on_yellow('Okay. Wait')
-        write("tmp.wav", 
+        write(filename, 
               samplerate, 
               np.int16(dt * (32767/np.max(np.abs(np.array([dt.min(),dt.max()]))))))
     
     return speech_to_text_from_wav(lang)
 
 
-def speech_to_text_from_wav(lang = 'ru-RU', file = 'tmp.wav'):
+def speech_to_text_from_wav(lang = 'ru-RU', file = filename):
 
     # Initialize recognizer class (for recognizing the speech)
     r = sr.Recognizer()
