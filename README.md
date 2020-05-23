@@ -54,5 +54,6 @@ pip install termcolor
 pip install colorama
 ```
 
+1. download and run [this file] (https://github.com/downloads/PasaOpasen/SpeechLogger/blob/master/SecondTry/text_logger3.py)
 
 
