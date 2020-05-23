@@ -86,10 +86,17 @@ sentence.correct()
 
 
 
+#https://dev-gang.ru/article/perevod-teksta-s-pomosczu-google-translate-api-v-python-ahgm88wx1k/
 
+from googletrans import Translator
 
+translator = Translator()
+result = translator.translate('Привет', src='ru', dest='en')
 
-
+print(result.src)
+print(result.dest)
+print(result.text)
+print(result.pronunciation)
 
 
 
