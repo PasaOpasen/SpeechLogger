@@ -58,4 +58,6 @@ pip install colorama
 
 4. download and run [this file](https://github.com/PasaOpasen/SpeechLogger/releases/download/0.2.0/text_logger3.py)
 
+### Notes
+* if u have some problems with installing pyaudio, try to get solutions [here](https://stackoverflow.com/questions/52283840/i-cant-install-pyaudio-on-windows-how-to-solve-error-microsoft-visual-c-14)
 
