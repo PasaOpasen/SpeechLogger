@@ -33,6 +33,8 @@ New scope:
 
 * recognition speech from speakers too (if u have a speaker supported callbacks)
 
+![see](https://github.com/PasaOpasen/SpeechLogger/blob/master/gifs/second.gif)
+
 ### How to run
 
 I cannot compile it now because of problems with soundcard, but u can run it by Python:
