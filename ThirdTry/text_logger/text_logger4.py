@@ -72,7 +72,7 @@ def set_speaker():
     
     
 
-def speech_to_text_from_speaker(speaker,time = 200_000,samplerate = 48000,lang = 'ru-RU'):
+def speech_to_text_from_speaker(speaker,time = 200_000,samplerate = 48000, lang = 'ru-RU'):
     with speaker.recorder(samplerate=samplerate) as mic:
         print_on_magenta('Listen')
         dt = mic.record(time)        
@@ -84,7 +84,7 @@ def speech_to_text_from_speaker(speaker,time = 200_000,samplerate = 48000,lang =
     return speech_to_text_from_wav(lang)
 
 
-def speech_to_text_from_wav(lang = 'ru-RU', file = 'tmp.wav'):
+def speech_to_text_from_wav(lang = 'ru', file = 'tmp.wav'):
 
     # Initialize recognizer class (for recognizing the speech)
     r = sr.Recognizer()
@@ -103,7 +103,7 @@ def speech_to_text_from_wav(lang = 'ru-RU', file = 'tmp.wav'):
             print(e)
             return 'bad result of recognition'
              
-def speech_to_text_from_micro(lang = 'ru-RU'):
+def speech_to_text_from_micro(lang = 'ru'):
     r = sr.Recognizer()
 
     # Reading Microphone as source
@@ -114,7 +114,7 @@ def speech_to_text_from_micro(lang = 'ru-RU'):
         #energy threshold based on the surrounding noise level 
         r.adjust_for_ambient_noise(source, 0.5) 
         
-        print_on_magenta(f"TALK ({lang[:2]})")
+        print_on_magenta(f"TALK ({lang})")
         audio_text = r.listen(source)
         print_on_yellow("Okay. Stop talking")
         # recoginize_() method will throw a request error if the API is unreachable, hence using exception handling
@@ -169,7 +169,7 @@ def do_log(stop_word = 'break app', lang_list = ['en','ru','fa']):
         counter+=1
 
 
-def do_log_with_recognition(stop_word = '+', lang_list = ['en','ru','fa'], ends=['US','RU','IR'], lang_repeat_step = 4, stop_repeat_step = 5):
+def do_log_with_recognition(stop_word = '+', lang_list = ['en','ru','fa'], lang_repeat_step = 4, stop_repeat_step = 5):
     
     counter = 1
     
@@ -192,7 +192,7 @@ def do_log_with_recognition(stop_word = '+', lang_list = ['en','ru','fa'], ends=
         if text.isdigit():
             try:
                 number = int(text)-1
-                text = speech_to_text_from_micro(f'{lang_list[number]}-{ends[number]}')
+                text = speech_to_text_from_micro(lang_list[number])
                 print_on_cyan('You said:',end='')
                 print_on_magenta(' '+text)
             except Exception as e:
@@ -211,7 +211,7 @@ def do_log_with_recognition(stop_word = '+', lang_list = ['en','ru','fa'], ends=
             print_on_magenta("to stop it write",end=' ')
             print_on_red(stop_word)
 
-def do_log_with_recognition_both(speaker, stop_word = '+', lang_list = ['en','ru','fa'], ends=['US','RU','IR'], lang_repeat_step = 4, stop_repeat_step = 5):
+def do_log_with_recognition_both(speaker, stop_word = '+', lang_list = ['en','ru','fa'], lang_repeat_step = 4, stop_repeat_step = 5):
     
     counter = 1
     
@@ -235,7 +235,7 @@ def do_log_with_recognition_both(speaker, stop_word = '+', lang_list = ['en','ru
         if text[1:].isdigit():
             try:
                 number = int(text[1:])-1
-                text = speech_to_text_from_speaker(speaker = my_speaker, lang=f'{lang_list[number]}-{ends[number]}')
+                text = speech_to_text_from_speaker(speaker = my_speaker, lang=lang_list[number])
                 print(colored('You listened:',on_color='on_cyan'),end='')
                 print_on_magenta(' '+text)
             except Exception as e:
@@ -246,7 +246,7 @@ def do_log_with_recognition_both(speaker, stop_word = '+', lang_list = ['en','ru
         elif text.isdigit():
             try:
                 number = int(text)-1
-                text = speech_to_text_from_micro(f'{lang_list[number]}-{ends[number]}')
+                text = speech_to_text_from_micro(lang_list[number])
                 print_on_cyan('You said:',end='')
                 print_on_magenta(' '+text)
             except Exception as e:

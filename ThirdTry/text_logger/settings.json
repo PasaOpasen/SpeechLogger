@@ -1,0 +1,9 @@
+{
+    "languages": [
+        "ru",
+        "en",
+        "fa"
+    ],
+    "listen_time": 220000,
+    "stop_word": "+"
+}

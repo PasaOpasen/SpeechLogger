@@ -77,7 +77,7 @@ def speech_to_text_from_micro(lang = 'ru-RU'):
         return 'bad result of recognition'
              
              
-speech_to_text_from_micro()
+speech_to_text_from_micro(lang='fa')
 speech_to_text_from_wav()
 
 speech_to_text_from_speaker(din,time=100000,lang = 'ru-RU')

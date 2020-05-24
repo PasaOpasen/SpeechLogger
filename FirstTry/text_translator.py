@@ -91,12 +91,72 @@ sentence.correct()
 from googletrans import Translator
 
 translator = Translator()
-result = translator.translate('Привет', src='ru', dest='en')
+result = translator.translate('Hello', src='en', dest='ru')
 
 print(result.src)
 print(result.dest)
 print(result.text)
 print(result.pronunciation)
+
+
+
+translator = Translator(service_urls=[
+      'translate.google.com',
+      'translate.google.co.kr',
+    ])
+
+
+
+import pronouncing
+pronouncing.rhymes("climbing")
+pronouncing.phones_for_word('Привет')
+
+
+
+import os
+from gtts import gTTS
+
+tts = gTTS('hello')
+
+tts.save('hello.mp3')
+os.system("hello.mp3")
+
+
+
+# это позднее где-то пригодится
+
+import win32com.client as wincl
+speak = wincl.Dispatch("SAPI.SpVoice")
+speak.Speak("Hello World сука")
+speak.Speak("Привет пидор")
+#speak.Speak("Ich will")
+
+
+
+
+import pyttsx3
+engine = pyttsx3.init()
+engine.say('Good morning.')
+engine.runAndWait()
+
+
+
+
+
+from google_speech import Speech # sox too
+
+# say "Hello World"
+text = "Hello World"
+lang = "en"
+speech = Speech(text, lang)
+speech.play()
+
+# you can also apply audio effects while playing (using SoX)
+# see http://sox.sourceforge.net/sox.html#EFFECTS for full effect documentation
+sox_effects = ("speed", "1.5")
+speech.play(sox_effects)
+
+
 
 
 
