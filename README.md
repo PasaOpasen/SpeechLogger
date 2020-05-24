@@ -37,7 +37,7 @@ New scope:
 
 ### How to run
 
-I cannot compile it now because of problems with soundcard, but u can run it by Python:
+I cannot compile it now because of [problems with soundcard](https://github.com/bastibe/SoundCard/issues/92), but u can run it by Python:
 
 1. Download Python from [official site](https://www.python.org/downloads/) (choose correct operation system)
 
