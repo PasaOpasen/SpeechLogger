@@ -70,7 +70,31 @@ def set_speaker():
                 my_speaker = lst[number-1] 
                 break
     
+def detect_languages(langs):
+    with open("./text_logger/languges.json", "r") as read_file:
+        lg = json.load(read_file)
+    
+    rs = []
+    
+    for lang in langs:
+        if lang in lg.values():
+            rs.append(lang)
+        elif lang in lg.keys():
+            rs.append(lg[lang])
+        else:
+            f = False
+            for k in lg.keys():
+                if k.startswith(lang):
+                    rs.append(lg[k])
+                    f = True
+                    break
+            if not f:
+                print_on_red(f"I donna this language: '{lang}'. See json file to correct it")
 
+    if len(rs) == 0:
+        print_on_red('There are no correct languages in ur list. See json file to correct it')
+
+    return rs
     
     
 
@@ -277,6 +301,9 @@ if __name__ == '__main__':
     
     with open("./text_logger/settings.json", "r") as read_file:
         settings = json.load(read_file)
+    
+    settings['languages'] = detect_languages(settings['languages'])
+    
     print_on_blue(f'Your settings: {settings}')
     print()
     
