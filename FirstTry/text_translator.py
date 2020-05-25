@@ -134,10 +134,19 @@ speak.Speak("Привет пидор")
 
 
 
-import pyttsx3
+import pyttsx3 # also installed pypiwin32
 engine = pyttsx3.init()
+
+rate = engine.getProperty('rate')
+engine.setProperty('rate', 140)
+
+
 engine.say('Good morning.')
 engine.runAndWait()
+
+engine.say('Привет')
+engine.runAndWait()
+
 
 
 

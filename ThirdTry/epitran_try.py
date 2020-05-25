@@ -26,3 +26,6 @@ backoff.transliterate('queen')
 backoff.transliterate('中文')
 
 backoff.transliterate('سلام شادی من')
+
+
+backoff.transliterate('ملکه')
