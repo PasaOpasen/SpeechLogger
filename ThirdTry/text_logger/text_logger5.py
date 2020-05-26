@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue May 23 14:44:49 2020
+Created on Tue May 26 14:44:49 2020
 
 @author: qtckp
+
+it`s text_logger4 with epytran transcriptions
 """
 
 from textblob import TextBlob
@@ -11,14 +13,18 @@ import soundcard as sc
 from scipy.io.wavfile import write
 import numpy as np
 
+import epitran
+
 import json
 
 from termcolor import colored
-#import colorama
-#colorama.init()
+import colorama
+colorama.init()
 
 
 my_speaker = None
+epis = {}
+
 
 
 def print_on_blue(text, end='\n'):
@@ -70,36 +76,64 @@ def set_speaker():
                 my_speaker = lst[number-1] 
                 break
     
-def detect_languages(langs):
+def detect_languages(langs, trans):
     with open("./text_logger/languges.json", "r") as read_file:
         lg = json.load(read_file)
     
-    rs = []
-    def add_print(langu):
-        print(f'added {langu} language')
+    with open("./text_logger/languges_for_transcription.json", "r") as read_file:
+        tc = json.load(read_file)
     
-    for lang in langs:
+    rs = []
+    nd = []
+    global epis
+    
+    def add_print(langu):
+        print_on_magenta(f'---> added {langu} language')
+    
+    def add2_print(langu, is_not_sup):
+        if is_not_sup:
+            print(f'\tlanguage {langu} will be trancripted (with limited support)')
+        else:
+            print(f'\tlanguage {langu} will be trancripted')
+    
+    for lang, need in zip(langs,trans):
+        
+        f = False
+        
         if lang in lg.values():
             rs.append(lang)
+            f = True
             add_print(lang)
         elif lang in lg.keys():
             rs.append(lg[lang])
+            f = True
             add_print(lang)
         else:
-            f = False
             for k in lg.keys():
                 if k.startswith(lang):
                     rs.append(lg[k])
                     add_print(k)
                     f = True
                     break
-            if not f:
-                print_on_red(f"I donna this language: '{lang}'. See json file to correct it")
+        
+        if not f:
+            print_on_red(f"I donna this language: '{lang}'. See json file to correct it")
+        else:
+            nd.append(need)
+            
+            itlang = rs[len(rs)-1]
+            epitran_lang = [key for key, _ in tc.items() if key.startswith(itlang)][0]
+            
+            if need:
+                epis[itlang] = epitran.Epitran(epitran_lang)
+                add2_print(*tc[epitran_lang])
+            
+
 
     if len(rs) == 0:
         print_on_red('There are no correct languages in ur list. See json file to correct it')
 
-    return rs
+    return rs, nd
     
     
 
@@ -158,7 +192,7 @@ def speech_to_text_from_micro(lang = 'ru'):
 
              
 
-def log_text(text, lang_of_text=None, lang_list = ['en','ru']):
+def log_text(text, lang_of_text=None, lang_list = ['en','ru'], trans_list = [True, True]):
     
     if len(text) < 3:
         print_on_yellow('too small text:',end=' ')
@@ -171,15 +205,22 @@ def log_text(text, lang_of_text=None, lang_list = ['en','ru']):
 
     bool_list = [r != lang_of_text for r in lang_list]
     
-    for lang, it in zip(lang_list, bool_list):
+    for lang, it, tc in zip(lang_list, bool_list, trans_list):
         print(colored(f'\t {lang}:', color = 'cyan', attrs=['bold']), end=' ')
         if it:
-            print(str(blob.translate(from_lang = lang_of_text, to = lang)))
+            txt = str(blob.translate(from_lang = lang_of_text, to = lang))
+            print(txt)
         else:
+            txt = text
             print(f'{text} (original text)')
+        
+        if tc:
+            pron = epis[lang].transliterate(txt)
+            print('\t\t\t',end=' ')
+            print_on_magenta(f'[{pron}]')
 
 
-def do_log(stop_word = 'break app', lang_list = ['en','ru','fa']):
+def do_log(stop_word = 'break app', lang_list = ['en','ru','fa'], trans_list = [True, True,True]):
     
     counter = 1
     
@@ -196,11 +237,11 @@ def do_log(stop_word = 'break app', lang_list = ['en','ru','fa']):
         text = input(f'({counter})--> ')
         if text == stop_word:
             break
-        log_text(text, lang_list = lang_list)
+        log_text(text, lang_list = lang_list, trans_list = trans_list)
         counter+=1
 
 
-def do_log_with_recognition(stop_word = '+', lang_list = ['en','ru','fa'], lang_repeat_step = 4, stop_repeat_step = 5):
+def do_log_with_recognition(stop_word = '+', lang_list = ['en','ru','fa'], trans_list = [True, True,True], lang_repeat_step = 4, stop_repeat_step = 5):
     
     counter = 1
     
@@ -230,7 +271,7 @@ def do_log_with_recognition(stop_word = '+', lang_list = ['en','ru','fa'], lang_
                 print(e)
                 print_on_yellow('Something wrong...')
 
-        log_text(text, lang_list = lang_list)
+        log_text(text, lang_list = lang_list, trans_list = trans_list)
              
         counter+=1
         
@@ -242,7 +283,7 @@ def do_log_with_recognition(stop_word = '+', lang_list = ['en','ru','fa'], lang_
             print_on_magenta("to stop it write",end=' ')
             print_on_red(stop_word)
 
-def do_log_with_recognition_both(speaker, listen_time = 200_000, stop_word = '+', lang_list = ['en','ru','fa'], lang_repeat_step = 4, stop_repeat_step = 5):
+def do_log_with_recognition_both(speaker, listen_time = 200_000, stop_word = '+', lang_list = ['en','ru','fa'], trans_list = [True, True,True], lang_repeat_step = 4, stop_repeat_step = 5):
     
     counter = 1
     
@@ -284,7 +325,7 @@ def do_log_with_recognition_both(speaker, listen_time = 200_000, stop_word = '+'
                 print(e)
                 print_on_yellow('Something wrong...')
 
-        log_text(text, lang_list = lang_list)
+        log_text(text, lang_list = lang_list, trans_list = trans_list)
              
         counter+=1
         
@@ -307,8 +348,9 @@ if __name__ == '__main__':
     with open("./text_logger/settings.json", "r") as read_file:
         settings = json.load(read_file)
     
-    settings['languages'] = detect_languages(settings['languages'])
+    settings['languages'], settings['need_to_transcript'] = detect_languages(settings['languages'], settings['need_to_transcript'])
     
+    print()
     print_on_blue(f'Your settings: {settings}')
     print()
     
@@ -321,16 +363,18 @@ if __name__ == '__main__':
     
     if my_speaker == None:
         do_log_with_recognition(lang_list=settings['languages'],
-                                stop_word=settings['stop_word'])
+                                stop_word=settings['stop_word'],
+                                trans_list = settings['need_to_transcript']
+                                )
     else:
         do_log_with_recognition_both(speaker = my_speaker,
                                      lang_list=settings['languages'],
                                      stop_word=settings['stop_word'],
-                                     listen_time = settings['listen_time']
+                                     listen_time = settings['listen_time'],
+                                     trans_list = settings['need_to_transcript']
                                      )
 
 
-#input('Press any key...')
 
 
 

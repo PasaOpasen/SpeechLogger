@@ -1,0 +1,17 @@
+[I 200526 17:17:21 <ipython-input-6-a92b120d289c>:7] text
+[I 200526 17:17:42 <ipython-input-7-a92b120d289c>:7] text
+[I 200526 17:19:29 <ipython-input-9-a6632772d044>:7] سلام
+[I 200526 17:22:28 <ipython-input-10-1bb0731c6ff4>:7] سلام
+[I 200526 17:31:55 text_logger6:358] ____NEW SESSION____
+[I 200526 17:31:58 text_logger6:368] Your settings: {'languages': ['ru', 'en', 'fa'], 'need_to_transcript': [True, False, True], 'listen_time': 220000, 'stop_word': '+'}
+[I 200526 17:32:05 text_logger6:216] 	ru: hello
+[I 200526 17:32:05 text_logger6:220] 	en(original): hello
+[I 200526 17:32:05 text_logger6:216] 	fa: hello
+[I 200526 17:32:10 text_logger6:216] 	ru: how r u
+[I 200526 17:32:10 text_logger6:220] 	en(original): how r u
+[I 200526 17:32:11 text_logger6:216] 	fa: how r u
+[I 200526 17:32:26 text_logger6:220] 	ru(original): дом
+[I 200526 17:32:26 text_logger6:216] 	en: дом
+[I 200526 17:32:26 text_logger6:216] 	fa: дом
+[I 200526 17:37:02 text_logger6:361] ____NEW SESSION____
+[I 200526 17:37:04 text_logger6:371] Your settings: {'languages': ['ru', 'en', 'fa'], 'need_to_transcript': [True, False, True], 'listen_time': 220000, 'stop_word': '+'}

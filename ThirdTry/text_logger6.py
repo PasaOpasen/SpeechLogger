@@ -4,7 +4,7 @@ Created on Tue May 26 14:44:49 2020
 
 @author: qtckp
 
-it`s text_logger4 with epytran transcriptions
+it`s text_logger5 with logzero (experimental)
 """
 
 from textblob import TextBlob
@@ -16,10 +16,12 @@ import numpy as np
 import epitran
 
 import json
+import logzero
+from logzero import logger
 
 from termcolor import colored
-import colorama
-colorama.init()
+#import colorama
+#colorama.init()
 
 
 my_speaker = None
@@ -195,8 +197,9 @@ def speech_to_text_from_micro(lang = 'ru'):
 def log_text(text, lang_of_text=None, lang_list = ['en','ru'], trans_list = [True, True]):
     
     if len(text) < 3:
-        print_on_yellow('too small text:',end=' ')
+        print_on_yellow('too small text:',end=' ')       
         print(text)
+        logger.info(f'too small: {text}')
         return
     
     blob = TextBlob(text)
@@ -210,9 +213,11 @@ def log_text(text, lang_of_text=None, lang_list = ['en','ru'], trans_list = [Tru
         if it:
             txt = str(blob.translate(from_lang = lang_of_text, to = lang))
             print(txt)
+            logger.info(f'\t{lang}: {text}')
         else:
             txt = text
             print(f'{text} (original text)')
+            logger.info(f'\t{lang}(original): {text}')
         
         if tc:
             pron = epis[lang].transliterate(txt)
@@ -237,6 +242,7 @@ def do_log(stop_word = 'break app', lang_list = ['en','ru','fa'], trans_list = [
         text = input(f'({counter})--> ')
         if text == stop_word:
             break
+        logger.info(f'({counter})--> ')
         log_text(text, lang_list = lang_list, trans_list = trans_list)
         counter+=1
 
@@ -267,10 +273,12 @@ def do_log_with_recognition(stop_word = '+', lang_list = ['en','ru','fa'], trans
                 text = speech_to_text_from_micro(lang_list[number])
                 print_on_cyan('You said:',end='')
                 print_on_magenta(' '+text)
+                logger.info(f"You said: {text}")
             except Exception as e:
                 print(e)
                 print_on_yellow('Something wrong...')
 
+        logger.info(f'({counter})--> ')
         log_text(text, lang_list = lang_list, trans_list = trans_list)
              
         counter+=1
@@ -310,6 +318,7 @@ def do_log_with_recognition_both(speaker, listen_time = 200_000, stop_word = '+'
                 text = speech_to_text_from_speaker(speaker = my_speaker, lang=lang_list[number], time = listen_time)
                 print(colored('You listened:',on_color='on_cyan'),end='')
                 print_on_magenta(' '+text)
+                logger.info(f"You listened: {text}")
             except Exception as e:
                 print(e)
                 print_on_yellow('Something wrong...')
@@ -321,10 +330,12 @@ def do_log_with_recognition_both(speaker, listen_time = 200_000, stop_word = '+'
                 text = speech_to_text_from_micro(lang_list[number])
                 print_on_cyan('You said:',end='')
                 print_on_magenta(' '+text)
+                logger.info(f"You said: {text}")
             except Exception as e:
                 print(e)
                 print_on_yellow('Something wrong...')
 
+        logger.info(f'({counter})--> ')
         log_text(text, lang_list = lang_list, trans_list = trans_list)
              
         counter+=1
@@ -345,6 +356,11 @@ def do_log_with_recognition_both(speaker, listen_time = 200_000, stop_word = '+'
 
 if __name__ == '__main__':
     
+    logzero.logfile("logfile.log", disableStderrLogger=0, encoding = 'utf-8')
+ 
+    logger.info('____NEW SESSION____')
+    
+    
     with open("./text_logger/settings.json", "r") as read_file:
         settings = json.load(read_file)
     
@@ -352,6 +368,7 @@ if __name__ == '__main__':
     
     print()
     print_on_blue(f'Your settings: {settings}')
+    logger.info(f'Your settings: {settings}')
     print()
     
     set_speaker()    
