@@ -50,7 +50,7 @@ pip install numpy
 pip install scipy
 pip install textblob
 pip install pyaudio
-pip install soundcard
+pip install soundcard==0.3.3
 pip install speechrecognition
 pip install termcolor
 pip install colorama
