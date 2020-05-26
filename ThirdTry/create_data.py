@@ -23,7 +23,7 @@ if os.path.exists(directory):
 os.makedirs(directory)
 
 
-copy('text_logger4.py')
+copy('text_logger5.py')
 copy("languges_for_transcription.json")
 
 
