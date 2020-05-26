@@ -78,7 +78,7 @@ TODO firstly:
 
 * transcript persian words better
 
-https://github.com/PasaOpasen/SpeechLogger/blob/master/gifs/third.gif
+![im](https://github.com/PasaOpasen/SpeechLogger/blob/master/gifs/third.gif)
 
 ### How to use
 
