@@ -25,7 +25,13 @@ TODO:
 
 ![1](https://github.com/PasaOpasen/SpeechLogger/blob/master/gifs/first.gif)
 
-**You can download this app as compiled** (see [releases](https://github.com/PasaOpasen/SpeechLogger/releases)).
+### How to run
+
+**You can download this app as compiled** (see [releases](https://github.com/PasaOpasen/SpeechLogger/releases)). Unpack and run **.exe** file.
+
+### Notes 
+
+* Not correct showing of arabic words (reversed and upper-cased) exists because of [bags with windows terminal](https://github.com/microsoft/terminal/issues/538) 
 
 ## Second result
 
