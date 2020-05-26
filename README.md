@@ -35,7 +35,7 @@ TODO:
 
 ## Second result
 
-New scope:
+What's new:
 
 * recognition speech from speakers too (if u have a speaker supported callbacks)
 
@@ -66,4 +66,27 @@ pip install colorama
 
 ### Notes
 * if u have some problems with installing pyaudio, try to get solutions [here](https://stackoverflow.com/questions/52283840/i-cant-install-pyaudio-on-windows-how-to-solve-error-microsoft-visual-c-14)
+
+## Third result
+
+What's new:
+
+* **json** files with basic settings and supported languages
+* trancription (grapheme to phoneme) by [epitran](https://github.com/dmort27/epitran)
+
+TODO firstly:
+
+* transcript persian words better
+
+https://github.com/PasaOpasen/SpeechLogger/blob/master/gifs/third.gif
+
+### How to use
+
+1. also install **epitran** by command (**cmd.exe**):
+```
+pip install epitran
+```
+2. download [release](https://github.com/PasaOpasen/SpeechLogger/releases/tag/0.2.1)
+
+3. unpuck and run **.py** file
 
