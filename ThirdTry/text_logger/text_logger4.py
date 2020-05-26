@@ -11,9 +11,11 @@ import soundcard as sc
 from scipy.io.wavfile import write
 import numpy as np
 
+import json
+
 from termcolor import colored
-import colorama
-colorama.init()
+#import colorama
+#colorama.init()
 
 
 my_speaker = None
@@ -68,13 +70,42 @@ def set_speaker():
                 my_speaker = lst[number-1] 
                 break
     
+def detect_languages(langs):
+    with open("./text_logger/languges.json", "r") as read_file:
+        lg = json.load(read_file)
+    
+    rs = []
+    def add_print(langu):
+        print(f'added {langu} language')
+    
+    for lang in langs:
+        if lang in lg.values():
+            rs.append(lang)
+            add_print(lang)
+        elif lang in lg.keys():
+            rs.append(lg[lang])
+            add_print(lang)
+        else:
+            f = False
+            for k in lg.keys():
+                if k.startswith(lang):
+                    rs.append(lg[k])
+                    add_print(k)
+                    f = True
+                    break
+            if not f:
+                print_on_red(f"I donna this language: '{lang}'. See json file to correct it")
 
+    if len(rs) == 0:
+        print_on_red('There are no correct languages in ur list. See json file to correct it')
+
+    return rs
     
     
 
 def speech_to_text_from_speaker(speaker,time = 200_000,samplerate = 48000, lang = 'ru-RU'):
     with speaker.recorder(samplerate=samplerate) as mic:
-        print_on_magenta('Listen')
+        print_on_magenta(f'Listen (expected {lang})')
         dt = mic.record(time)        
         print_on_yellow('Okay. Wait')
         write("tmp.wav", 
@@ -114,7 +145,7 @@ def speech_to_text_from_micro(lang = 'ru'):
         #energy threshold based on the surrounding noise level 
         r.adjust_for_ambient_noise(source, 0.5) 
         
-        print_on_magenta(f"TALK ({lang})")
+        print_on_magenta(f"TALK (expected {lang})")
         audio_text = r.listen(source)
         print_on_yellow("Okay. Stop talking")
         # recoginize_() method will throw a request error if the API is unreachable, hence using exception handling
@@ -211,7 +242,7 @@ def do_log_with_recognition(stop_word = '+', lang_list = ['en','ru','fa'], lang_
             print_on_magenta("to stop it write",end=' ')
             print_on_red(stop_word)
 
-def do_log_with_recognition_both(speaker, stop_word = '+', lang_list = ['en','ru','fa'], lang_repeat_step = 4, stop_repeat_step = 5):
+def do_log_with_recognition_both(speaker, listen_time = 200_000, stop_word = '+', lang_list = ['en','ru','fa'], lang_repeat_step = 4, stop_repeat_step = 5):
     
     counter = 1
     
@@ -235,7 +266,7 @@ def do_log_with_recognition_both(speaker, stop_word = '+', lang_list = ['en','ru
         if text[1:].isdigit():
             try:
                 number = int(text[1:])-1
-                text = speech_to_text_from_speaker(speaker = my_speaker, lang=lang_list[number])
+                text = speech_to_text_from_speaker(speaker = my_speaker, lang=lang_list[number], time = listen_time)
                 print(colored('You listened:',on_color='on_cyan'),end='')
                 print_on_magenta(' '+text)
             except Exception as e:
@@ -273,6 +304,13 @@ def do_log_with_recognition_both(speaker, stop_word = '+', lang_list = ['en','ru
 
 if __name__ == '__main__':
     
+    with open("./text_logger/settings.json", "r") as read_file:
+        settings = json.load(read_file)
+    
+    settings['languages'] = detect_languages(settings['languages'])
+    
+    print_on_blue(f'Your settings: {settings}')
+    print()
     
     set_speaker()    
      
@@ -282,9 +320,14 @@ if __name__ == '__main__':
     print_on_blue('" to stop logging')
     
     if my_speaker == None:
-        do_log_with_recognition(stop_word='+')
+        do_log_with_recognition(lang_list=settings['languages'],
+                                stop_word=settings['stop_word'])
     else:
-        do_log_with_recognition_both(speaker = my_speaker, stop_word='+')
+        do_log_with_recognition_both(speaker = my_speaker,
+                                     lang_list=settings['languages'],
+                                     stop_word=settings['stop_word'],
+                                     listen_time = settings['listen_time']
+                                     )
 
 
 #input('Press any key...')

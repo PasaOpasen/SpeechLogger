@@ -11,16 +11,20 @@ import json
 import googletrans
 
 
-
 directory='./text_logger'
-file_name='text_logger4.py'
+
+def copy(filename):
+    shutil.copyfile(filename,os.path.join(directory,filename))
+
 
 if os.path.exists(directory):
     shutil.rmtree(directory)
 
 os.makedirs(directory)
 
-shutil.copyfile(file_name,os.path.join(directory,file_name))
+
+copy('text_logger4.py')
+copy("languges_for_transcription.json")
 
 
 
@@ -32,6 +36,7 @@ with open(os.path.join(directory,"languges.json"), "w") as write_file:
 
 settings = {
     'languages':['ru','en','fa'],
+    'need_to_transcript':[True,False,True],
     'listen_time':220_000,
     'stop_word':'+'
     }

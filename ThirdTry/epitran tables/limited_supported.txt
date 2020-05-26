@@ -1,0 +1,8 @@
+| ara-Arab    | Arabic                  |
+| cat-Latn    | Catalan                 |
+| ckb-Arab    | Sorani                  |
+| fas-Arab    | Farsi (Perso-Arabic)    |
+| fra-Latn    | French                  |
+| fra-Latn-np | French†                 |
+| mya-Mymr    | Burmese                 |
+| por-Latn    | Portuguese              |

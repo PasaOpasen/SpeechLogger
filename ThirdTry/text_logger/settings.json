@@ -4,6 +4,11 @@
         "en",
         "fa"
     ],
+    "need_to_transcript": [
+        true,
+        false,
+        true
+    ],
     "listen_time": 220000,
     "stop_word": "+"
 }

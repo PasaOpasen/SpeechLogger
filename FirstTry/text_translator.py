@@ -98,6 +98,7 @@ print(result.dest)
 print(result.text)
 print(result.pronunciation)
 
+data = translator._translate('Hello', 'en', 'ru')
 
 
 translator = Translator(service_urls=[

@@ -1,0 +1,278 @@
+{
+    "aar-Latn": [
+        "Afar",
+        false
+    ],
+    "amh-Ethi": [
+        "Amharic",
+        false
+    ],
+    "ara-Arab": [
+        "Literary Arabic",
+        true
+    ],
+    "aze-Cyrl": [
+        "Azerbaijani (Cyrillic)",
+        false
+    ],
+    "aze-Latn": [
+        "Azerbaijani (Latin)",
+        false
+    ],
+    "ben-Beng": [
+        "Bengali",
+        false
+    ],
+    "ben-Beng-red": [
+        "Bengali (reduced)",
+        false
+    ],
+    "cat-Latn": [
+        "Catalan",
+        true
+    ],
+    "ceb-Latn": [
+        "Cebuano",
+        false
+    ],
+    "cmn-Hans": [
+        "Mandarin (Simplified)\\*",
+        false
+    ],
+    "cmn-Hant": [
+        "Mandarin (Traditional)\\*",
+        false
+    ],
+    "ckb-Arab": [
+        "Sorani",
+        true
+    ],
+    "deu-Latn": [
+        "German",
+        false
+    ],
+    "deu-Latn-np": [
+        "German\u0432\u0402",
+        false
+    ],
+    "deu-Latn-nar": [
+        "German (more phonetic)",
+        false
+    ],
+    "eng-Latn": [
+        "English\u0432\u0402\u040e",
+        false
+    ],
+    "fas-Arab": [
+        "Farsi (Perso-Arabic)",
+        true
+    ],
+    "fra-Latn": [
+        "French",
+        true
+    ],
+    "fra-Latn-np": [
+        "French\u0432\u0402",
+        true
+    ],
+    "hau-Latn": [
+        "Hausa",
+        false
+    ],
+    "hin-Deva": [
+        "Hindi",
+        false
+    ],
+    "hun-Latn": [
+        "Hungarian",
+        false
+    ],
+    "ilo-Latn": [
+        "Ilocano",
+        false
+    ],
+    "ind-Latn": [
+        "Indonesian",
+        false
+    ],
+    "ita-Latn": [
+        "Italian",
+        false
+    ],
+    "jav-Latn": [
+        "Javanese",
+        false
+    ],
+    "kaz-Cyrl": [
+        "Kazakh (Cyrillic)",
+        false
+    ],
+    "kaz-Latn": [
+        "Kazakh (Latin)",
+        false
+    ],
+    "kin-Latn": [
+        "Kinyarwanda",
+        false
+    ],
+    "kir-Arab": [
+        "Kyrgyz (Perso-Arabic)",
+        false
+    ],
+    "kir-Cyrl": [
+        "Kyrgyz (Cyrillic)",
+        false
+    ],
+    "kir-Latn": [
+        "Kyrgyz (Latin)",
+        false
+    ],
+    "kmr-Latn": [
+        "Kurmanji",
+        false
+    ],
+    "lao-Laoo": [
+        "Lao",
+        false
+    ],
+    "mar-Deva": [
+        "Marathi",
+        false
+    ],
+    "mlt-Latn": [
+        "Maltese",
+        false
+    ],
+    "mya-Mymr": [
+        "Burmese",
+        true
+    ],
+    "msa-Latn": [
+        "Malay",
+        false
+    ],
+    "nld-Latn": [
+        "Dutch",
+        false
+    ],
+    "nya-Latn": [
+        "Chichewa",
+        false
+    ],
+    "orm-Latn": [
+        "Oromo",
+        false
+    ],
+    "pan-Guru": [
+        "Punjabi (Eastern)",
+        false
+    ],
+    "pol-Latn": [
+        "Polish",
+        false
+    ],
+    "por-Latn": [
+        "Portuguese",
+        true
+    ],
+    "ron-Latn": [
+        "Romanian",
+        false
+    ],
+    "rus-Cyrl": [
+        "Russian",
+        false
+    ],
+    "sna-Latn": [
+        "Shona",
+        false
+    ],
+    "som-Latn": [
+        "Somali",
+        false
+    ],
+    "spa-Latn": [
+        "Spanish",
+        false
+    ],
+    "swa-Latn": [
+        "Swahili",
+        false
+    ],
+    "swe-Latn": [
+        "Swedish",
+        false
+    ],
+    "tam-Taml": [
+        "Tamil",
+        false
+    ],
+    "tel-Telu": [
+        "Telugu",
+        false
+    ],
+    "tgk-Cyrl": [
+        "Tajik",
+        false
+    ],
+    "tgl-Latn": [
+        "Tagalog",
+        false
+    ],
+    "tha-Thai": [
+        "Thai",
+        false
+    ],
+    "tir-Ethi": [
+        "Tigrinya",
+        false
+    ],
+    "tpi-Latn": [
+        "Tok Pisin",
+        false
+    ],
+    "tuk-Cyrl": [
+        "Turkmen (Cyrillic)",
+        false
+    ],
+    "tuk-Latn": [
+        "Turkmen (Latin)",
+        false
+    ],
+    "tur-Latn": [
+        "Turkish (Latin)",
+        false
+    ],
+    "ukr-Cyrl": [
+        "Ukranian",
+        false
+    ],
+    "uig-Arab": [
+        "Uyghur (Perso-Arabic)",
+        false
+    ],
+    "uzb-Cyrl": [
+        "Uzbek (Cyrillic)",
+        false
+    ],
+    "uzb-Latn": [
+        "Uzbek (Latin)",
+        false
+    ],
+    "vie-Latn": [
+        "Vietnamese",
+        false
+    ],
+    "xho-Latn": [
+        "Xhosa",
+        false
+    ],
+    "yor-Latn": [
+        "Yoruba",
+        false
+    ],
+    "zul-Latn": [
+        "Zulu",
+        false
+    ]
+}

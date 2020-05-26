@@ -14,8 +14,8 @@ import numpy as np
 import json
 
 from termcolor import colored
-import colorama
-colorama.init()
+#import colorama
+#colorama.init()
 
 
 my_speaker = None
@@ -75,17 +75,22 @@ def detect_languages(langs):
         lg = json.load(read_file)
     
     rs = []
+    def add_print(langu):
+        print(f'added {langu} language')
     
     for lang in langs:
         if lang in lg.values():
             rs.append(lang)
+            add_print(lang)
         elif lang in lg.keys():
             rs.append(lg[lang])
+            add_print(lang)
         else:
             f = False
             for k in lg.keys():
                 if k.startswith(lang):
                     rs.append(lg[k])
+                    add_print(k)
                     f = True
                     break
             if not f:
@@ -100,7 +105,7 @@ def detect_languages(langs):
 
 def speech_to_text_from_speaker(speaker,time = 200_000,samplerate = 48000, lang = 'ru-RU'):
     with speaker.recorder(samplerate=samplerate) as mic:
-        print_on_magenta('Listen')
+        print_on_magenta(f'Listen (expected {lang})')
         dt = mic.record(time)        
         print_on_yellow('Okay. Wait')
         write("tmp.wav", 
@@ -140,7 +145,7 @@ def speech_to_text_from_micro(lang = 'ru'):
         #energy threshold based on the surrounding noise level 
         r.adjust_for_ambient_noise(source, 0.5) 
         
-        print_on_magenta(f"TALK ({lang})")
+        print_on_magenta(f"TALK (expected {lang})")
         audio_text = r.listen(source)
         print_on_yellow("Okay. Stop talking")
         # recoginize_() method will throw a request error if the API is unreachable, hence using exception handling
