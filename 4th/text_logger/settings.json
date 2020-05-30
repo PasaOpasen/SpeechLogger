@@ -1,0 +1,14 @@
+{
+    "languages": [
+        "ru",
+        "en",
+        "fa"
+    ],
+    "need_to_transcript": [
+        true,
+        false,
+        true
+    ],
+    "listen_time": 3,
+    "stop_word": "+"
+}
