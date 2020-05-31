@@ -98,6 +98,7 @@ What's new:
 * TextBlob API was replaced with better googletrans API
 * English is transliterated by [pysle](https://github.com/timmahrt/pysle), farsi --- by [PersianG2p](https://github.com/PasaOpasen/PersianG2P)
 
+![1](https://github.com/PasaOpasen/SpeechLogger/blob/master/gifs/4.PNG)
 
 ### How to use
 
