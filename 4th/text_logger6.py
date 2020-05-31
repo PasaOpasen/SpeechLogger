@@ -8,6 +8,7 @@ it`s text_logger4 with epytran transcriptions
 """
 
 from textblob import TextBlob
+#from googletrans import Translator
 import speech_recognition as sr
 import soundcard as sc
 from scipy.io.wavfile import write
@@ -24,6 +25,7 @@ colorama.init()
 
 my_speaker = None
 epis = {}
+#translator = Translator()
 
 
 
@@ -138,6 +140,7 @@ def detect_languages(langs, trans):
     
 
 def speech_to_text_from_speaker(speaker,time = 3, samplerate = 48000, lang = 'ru-RU'):
+    """time is the time in secs, samplerate is the frequency of signal"""
     with speaker.recorder(samplerate=samplerate) as mic:
         print_on_magenta(f'Listen (expected {lang})')
         time_count = int(time*samplerate)
@@ -203,6 +206,7 @@ def log_text(text, lang_of_text=None, lang_list = ['en','ru'], trans_list = [Tru
     blob = TextBlob(text)
     if lang_of_text == None:
         lang_of_text = blob.detect_language()
+        #lang_of_text = translator.detect(text)
 
     bool_list = [r != lang_of_text for r in lang_list]
     
@@ -210,6 +214,7 @@ def log_text(text, lang_of_text=None, lang_list = ['en','ru'], trans_list = [Tru
         print(colored(f'\t {lang}:', color = 'cyan', attrs=['bold']), end=' ')
         if it:
             txt = str(blob.translate(from_lang = lang_of_text, to = lang))
+            #txt = translator.translate(text, dest = lang, src = lang_of_text)
             print(txt)
         else:
             txt = text

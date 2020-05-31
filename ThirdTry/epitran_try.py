@@ -60,17 +60,13 @@ backoff.transliterate('ملکه')
 
 from pysle import isletool
 
-isletool.LexicalTool('ISLEdict.txt').lookup('cat')
+a = isletool.LexicalTool('ISLEdict.txt')
 
-from pysle import pronunciationtools
+sentence = "do you want another pumpkinseed"
+phoneList = isletool.transcribe(a, sentence, 'longest')
+print(phoneList)
 
-pronunciationtools.findClosestPronunciation(isleDict, 'cat', ['k', 'æ',])
 
-
-
-tl = isletool.LexicalTool()
-
-tl.lookup('cat')
 
 
 
