@@ -7,8 +7,8 @@ Created on Tue May 26 14:44:49 2020
 it`s text_logger4 with epytran transcriptions
 """
 
-from textblob import TextBlob
-#from googletrans import Translator
+#from textblob import TextBlob
+from googletrans import Translator
 import speech_recognition as sr
 import soundcard as sc
 from scipy.io.wavfile import write
@@ -25,8 +25,10 @@ colorama.init()
 
 my_speaker = None
 epis = {}
-#translator = Translator()
+translator = Translator()
+bad_result_message = '!!! BAD RESULT OF RECOGNITION. U CAN TRY AGAIN'
 
+print('...import is done...')
 
 
 def print_on_blue(text, end='\n'):
@@ -142,7 +144,7 @@ def detect_languages(langs, trans):
 def speech_to_text_from_speaker(speaker,time = 3, samplerate = 48000, lang = 'ru-RU'):
     """time is the time in secs, samplerate is the frequency of signal"""
     with speaker.recorder(samplerate=samplerate) as mic:
-        print_on_magenta(f'Listen (expected {lang})')
+        print_on_magenta(f'Listen (expected {lang}, {time} sec)')
         time_count = int(time*samplerate)
         dt = mic.record(time_count)        
         print_on_yellow('Okay. Wait')
@@ -170,7 +172,7 @@ def speech_to_text_from_wav(lang = 'ru', file = 'tmp.wav'):
             return r.recognize_google(audio_text, language = lang)
         except Exception as e:
             print(e)
-            return 'bad result of recognition'
+            return bad_result_message
              
 def speech_to_text_from_micro(lang = 'ru'):
     r = sr.Recognizer()
@@ -192,7 +194,7 @@ def speech_to_text_from_micro(lang = 'ru'):
         return r.recognize_google(audio_text, language = lang)
     except Exception as e:
         print(e)
-        return 'bad result of recognition'
+        return bad_result_message
 
              
 
@@ -203,18 +205,18 @@ def log_text(text, lang_of_text=None, lang_list = ['en','ru'], trans_list = [Tru
         print(text)
         return
     
-    blob = TextBlob(text)
+    #blob = TextBlob(text)
     if lang_of_text == None:
-        lang_of_text = blob.detect_language()
-        #lang_of_text = translator.detect(text)
+        #lang_of_text = blob.detect_language()
+        lang_of_text = translator.detect(text).lang
 
     bool_list = [r != lang_of_text for r in lang_list]
     
     for lang, it, tc in zip(lang_list, bool_list, trans_list):
         print(colored(f'\t {lang}:', color = 'cyan', attrs=['bold']), end=' ')
         if it:
-            txt = str(blob.translate(from_lang = lang_of_text, to = lang))
-            #txt = translator.translate(text, dest = lang, src = lang_of_text)
+            #txt = str(blob.translate(from_lang = lang_of_text, to = lang))
+            txt = translator.translate(text, dest = lang, src = lang_of_text).text
             print(txt)
         else:
             txt = text
@@ -271,6 +273,11 @@ def do_log_with_recognition(stop_word = '+', lang_list = ['en','ru','fa'], trans
             try:
                 number = int(text)-1
                 text = speech_to_text_from_micro(lang_list[number])
+                
+                if text.startswith('!'):
+                        print_on_yellow(text)
+                        continue
+                
                 print_on_cyan('You said:',end='')
                 print_on_magenta(' '+text)
             except Exception as e:
@@ -309,11 +316,17 @@ def do_log_with_recognition_both(speaker, listen_time = 3, stop_word = '+', lang
         if text == stop_word:
             break
         
+        
         # if text is like -1 (should listen)
         if text[1:].isdigit():
             try:
                 number = int(text[1:])-1
                 text = speech_to_text_from_speaker(speaker = my_speaker, lang=lang_list[number], time = listen_time)
+                
+                if text.startswith('!'):
+                        print_on_yellow(text)
+                        continue
+                
                 print(colored('You listened:',on_color='on_cyan'),end='')
                 print_on_magenta(' '+text)
             except Exception as e:
@@ -325,6 +338,11 @@ def do_log_with_recognition_both(speaker, listen_time = 3, stop_word = '+', lang
             try:
                 number = int(text)-1
                 text = speech_to_text_from_micro(lang_list[number])
+                
+                if text.startswith('!'):
+                        print_on_yellow(text)
+                        continue
+                
                 print_on_cyan('You said:',end='')
                 print_on_magenta(' '+text)
             except Exception as e:
@@ -342,11 +360,6 @@ def do_log_with_recognition_both(speaker, listen_time = 3, stop_word = '+', lang
         if counter%stop_repeat_step == 0:
             print_on_magenta("to stop it write",end=' ')
             print_on_red(stop_word)
-
-#do_log()
-
-
-
 
 
 if __name__ == '__main__':
