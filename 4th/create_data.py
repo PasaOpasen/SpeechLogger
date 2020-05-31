@@ -25,7 +25,7 @@ os.makedirs(directory)
 
 copy('text_logger6.py')
 copy("languges_for_transcription.json")
-
+copy("ISLEdict.txt")
 
 
 langs = {value: key for key, value in googletrans.LANGUAGES.items()}

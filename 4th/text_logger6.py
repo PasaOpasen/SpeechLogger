@@ -15,6 +15,8 @@ from scipy.io.wavfile import write
 import numpy as np
 
 import epitran
+from pysle import isletool
+from PersianG2p import Persian_g2p_converter
 
 import json
 
@@ -27,6 +29,17 @@ my_speaker = None
 epis = {}
 translator = Translator()
 bad_result_message = '!!! BAD RESULT OF RECOGNITION. U CAN TRY AGAIN'
+
+
+class PysleEnglish:
+    
+    def __init__(self):
+        self.dict = isletool.LexicalTool('text_logger/ISLEdict.txt')
+    def transliterate(self, text):
+        return isletool.transcribe(self.dict, text, 'longest')
+
+
+
 
 print('...import is done...')
 
@@ -96,9 +109,9 @@ def detect_languages(langs, trans):
     
     def add2_print(langu, is_not_sup):
         if is_not_sup:
-            print(f'\tlanguage {langu} will be trancripted (with limited support)')
+            print(f'\tlanguage {langu} will be trancripted by epitran (with limited support)')
         else:
-            print(f'\tlanguage {langu} will be trancripted')
+            print(f'\tlanguage {langu} will be trancripted by epitran')
     
     for lang, need in zip(langs,trans):
         
@@ -129,8 +142,15 @@ def detect_languages(langs, trans):
             epitran_lang = [key for key, _ in tc.items() if key.startswith(itlang)][0]
             
             if need:
-                epis[itlang] = epitran.Epitran(epitran_lang)
-                add2_print(*tc[epitran_lang])
+                if itlang == 'fa':
+                    epis[itlang] = Persian_g2p_converter()
+                    print('\tpersian will be trancripted by PersianG2p')
+                elif itlang == 'en':
+                    epis[itlang] = PysleEnglish()
+                    print('\tenglish will be trancripted by pysle')
+                else:
+                    epis[itlang] = epitran.Epitran(epitran_lang)
+                    add2_print(*tc[epitran_lang])
             
 
 
@@ -363,6 +383,8 @@ def do_log_with_recognition_both(speaker, listen_time = 3, stop_word = '+', lang
 
 
 if __name__ == '__main__':
+    
+    print()
     
     with open("./text_logger/settings.json", "r") as read_file:
         settings = json.load(read_file)
