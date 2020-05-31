@@ -90,3 +90,26 @@ pip install epitran
 
 3. unpuck and run **.py** file
 
+
+## 4th
+
+What's new:
+
+* TextBlob API was replaced with better googletrans API
+* English is transliterated by [pysle](https://github.com/timmahrt/pysle), farsi --- by [PersianG2p](https://github.com/PasaOpasen/PersianG2P)
+
+
+### How to use
+
+```
+pip install googletrans
+pip install pysle
+pip install PersianG2p
+```
+Download [release](https://github.com/PasaOpasen/SpeechLogger/releases/download/0.2.2/app.7z), unpuck and run **.py** file.
+
+
+
+
+
+
