@@ -109,7 +109,9 @@ pip install PersianG2p
 ```
 Download [release](https://github.com/PasaOpasen/SpeechLogger/releases/download/0.2.2/app.7z), unpuck and run **.py** file.
 
+## News
 
+Since 2 June 2020 I'm working with [this Telegram translator bot](https://github.com/PasaOpasen/TranslatorBot).
 
 
 
