@@ -31,7 +31,7 @@ TODO:
 
 ### Notes 
 
-* Not correct showing of arabic words (reversed and upper-cased) exists because of [bags with windows terminal](https://github.com/microsoft/terminal/issues/538). But u will copy this text and paste it into text editor / google / messanger, it would be normal. 
+* Not correct showing of arabic words (reversed and upper-cased) exists because of [bags with windows terminal](https://github.com/microsoft/terminal/issues/538). But if u will copy this text and paste it into text editor / google / messanger, it would be normal. 
 
 ## Second result
 
